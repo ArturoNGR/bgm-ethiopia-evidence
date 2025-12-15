@@ -2,7 +2,15 @@
 
 **Author:** Arturo de Nieves (UNHCR Senior Operations Officer; IHEID Senior Fellow in Residence, incoming)  
 **Contact:** denieves@unhcr.org  
-**Purpose:** Provide credible evidence (performance, robustness, interpretability) for a gravity-style **destination choice** model for forced displacement, and propose integration into the team’s modeling stack.
+**Purpose:** Public **evidence pack** (results + specification) demonstrating performance, robustness, and interpretability of a gravity-style **destination-choice** model for forced displacement; intended as an entry point for **collaboration and integration** (not a turnkey reproduction package).
+
+## How to engage (collaboration)
+This repository is an evidence pack (results + specification). It is intentionally **not turnkey**: raw microdata and the full end-to-end pipeline are not distributed.
+
+If you want to reproduce/extend this work, I can provide:
+- a code walkthrough (30–45 min),
+- controlled repo access for active collaborators,
+- and an integration plan into your existing ML/ABM stack.
 
 ---
 
@@ -14,12 +22,11 @@ We model **household → camp destination** as a **dyadic choice** problem. For 
 ---
 
 ## 2) Model specification (no OD-pair memorization)
-We explicitly exclude any origin×destination pair dummy (which can memorize OD propensity). The main specification is a gravity-style logistic model with **origin fixed effects** + **camp fixed effects** plus interpretable structural terms:
+We explicitly exclude any origin×destination pair dummy (which can memorize OD propensity). We therefore report results under **origin FE + camp FE only**, plus structural terms, to avoid overstating predictive power via pair memorization. The main specification is a gravity-style logistic model with **origin fixed effects** + **camp fixed effects** plus interpretable structural terms:
 
 <p align="center">
   <img src="./assets/eq_main.svg" alt="Main model equation" width="950">
 </p>
-
 
 Where:  
 - **α_o** are origin fixed effects  
@@ -46,7 +53,11 @@ We then define:
 - **Origin centroid:** mean household vector by origin  
 - **Camp centroid:** mean household vector by observed camp  
 
-Distances are computed using **Mahalanobis** distance between origin and camp centroids within E/C/S blocks (blockwise covariance estimated from the corresponding centroid vectors).
+Distances are computed using **Mahalanobis** distance between origin and camp centroids within E/C/S blocks (blockwise covariance estimated from the **union of origin and camp centroid vectors**, using a regularized inversion, applied to centroid differences).
+
+**Implementation pointers (reproducibility with local microdata access):**
+- Capital block construction and centroid outputs: `eth_step12_build_nodes_blocks_v5.py`
+- FE+BGM+diaspora dyadic model and evaluation: `eth_step11c_run_gravity_fe_diaspora.py`
 
 ---
 
@@ -98,9 +109,13 @@ Origin-capital hard negatives (FE+BGM+diaspora):
 
 Notes: kneg=10; GroupShuffleSplit by hid; seed=2. ROC/AUC generated with a self-check against the reference implementation (AUC diff < 1e-3).
 
+---
+
 ## 8) Governance and reproducibility stance
-- This pack includes results and model specification.  
-- **Raw microdata are not distributed.**  
-- Full reproduction requires controlled access to microdata and the full pipeline.
+- This pack includes results and specification; **it does not include raw microdata**.  
+- Full reproduction requires controlled access to the microdata and the end-to-end pipeline.  
+- **Collaboration path:** code walkthrough + controlled repo access for active collaborators; integration support into your existing ML/ABM pipelines.
 
 **Code walkthrough + repo access available for collaborators (contact Arturo).**
+
+Last updated: 2025-12-15. Contact: denieves@unhcr.org
