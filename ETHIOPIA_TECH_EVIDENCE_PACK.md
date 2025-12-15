@@ -1,7 +1,7 @@
 # Ethiopia forced-displacement pilot: destination choice modeling evidence pack (BGM)
 
-**Author:** Arturo de Nieves (IHEID Senior Fellow in Residence, incoming)  
-**Contact:** [your email]  
+**Author:** Arturo de Nieves (UNHCR Senior Operations Officer & IHEID Senior Fellow in Residence, incoming)  
+**Contact:** [denieves@unhcr.org]  
 **Purpose:** Demonstrate predictive performance, robustness, and methodological credibility of a gravity-style BGM for **camp destination choice** under forced displacement, and propose integration into the team’s modeling stack.
 
 ## 1) Problem and ML framing
