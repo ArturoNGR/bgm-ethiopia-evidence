@@ -16,7 +16,10 @@ We model **household → camp destination** as a **dyadic choice** problem. For 
 ## 2) Model specification (no OD-pair memorization)
 We explicitly exclude any origin×destination pair dummy (which can memorize OD propensity). The main specification is a gravity-style logistic model with **origin fixed effects** + **camp fixed effects** plus interpretable structural terms:
 
-![Main model equation](assets/eq_main.svg)
+<p align="center">
+  <img src="./assets/eq_main.svg" alt="Main model equation" width="950">
+</p>
+
 
 Where:  
 - **α_o** are origin fixed effects  
